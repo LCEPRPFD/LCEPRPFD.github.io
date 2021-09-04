@@ -1,1 +1,6 @@
 theme: jekyll-theme-cayman
+
+is_user_page: true
+github.is_user_page: true
+
+description: [The replication package for Learning CNN-Encoded Propositions for Robotic Programming from Few Demonstrations]
