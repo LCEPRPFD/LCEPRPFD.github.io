@@ -1,6 +1,6 @@
 theme: jekyll-theme-cayman
 description: [The replication package for Learning CNN-Encoded Propositions for Robotic Programming from Few Demonstrations]
 
-url: https://lceprpfd.github.io/
+url: "https://lceprpfd.github.io/"
 is_user_page: true
 github.is_user_page: true
