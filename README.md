@@ -6,7 +6,7 @@
 
 ### Code
 
-We refactor the code of this project, which can be found at [this](https://github.com/LCEPRPFD/learn_cnn_encoded_propositions).
+We refactor the code of this project, which can be found [here](https://github.com/LCEPRPFD/learn_cnn_encoded_propositions).
 
 ---
 
@@ -34,7 +34,7 @@ During training the ***capNet***, the Batch size is 256 and learning rate is 0.0
 ### baseNet and propNet
 
 <div align="center">
-    <img src="https://github.com/LCEPRPFD/LCEPRPFD.github.io/blob/main/img/propnet.png"/>
+    <img src="/img/propnet.png"/>
 </div>
 
 The input to the ***baseNet*** or ***propNet*** is a 50×65 trajectory action states.
@@ -52,7 +52,6 @@ The output layer consists of a 64×2 dense layer and a softmax layer.
 
 ---
 
-
 ### Evaluations
 
 - _TP_ (true positive) represents the correct evaluation of a proposition (i.e., evaluate the truth value) to an action which is completed correctly
@@ -66,14 +65,17 @@ The output layer consists of a 64×2 dense layer and a softmax layer.
 
 <div align="center">
     <img src="https://github.com/LCEPRPFD/LCEPRPFD.github.io/blob/main/img/TaskA_scenario.png"/>
+    <p>Figure: Scenario of TaskA</p>
 </div>
 
 ---
 
 #### RQ1 General Accuracy
 
-<!-- **Table: Accuracy of evaluating propositions in TaskA** -->
-<center>Table: Accuracy of evaluating propositions in TaskA</center>
+<div align="center">
+    <p>Table: Accuracy of evaluating propositions in TaskA</p>
+</div>
+
 <table align="center">
     <tr align="center">
         <td></td>
@@ -144,8 +146,9 @@ The experiments is executed for 50 times.
 
 #### RQ2: Impact of the Number of Demonstrations
 
-<!-- **Table: Accuracy of evaluating propositions in TaskA for SeR under different demonstration counts** -->
-<center>Table: Accuracy of evaluating propositions in TaskA for SeR under different demonstration counts</center>
+<div align="center">
+    <p>Table: Accuracy of evaluating propositions in TaskA for SeR under different demonstration counts</p>
+</div>
 
 <table align="center">
     <tr align="center">
@@ -213,8 +216,9 @@ The experiments is executed for 50 times.
 
 #### RQ3: Impact of the Demonstrations under Difference Environment Settings
 
-<!-- **Table: Accuracy of the program learned from demonstrations under different environment settings** -->
-<center>Table: Accuracy of the program learned from demonstrations under different environment settings</center>
+<div align="center">
+    <p>Table: Accuracy of the program learned from demonstrations under different environment settings</p>
+</div>
 
 <table align="center">
     <tr align="center">
@@ -244,9 +248,9 @@ The experiments is executed for 50 times.
 This table shows the evaluation of the impact of demonstrations conducted in different environment settings on the approach accuracy. 
 
 <div align="center">
-    <img src="https://github.com/LCEPRPFD/LCEPRPFD.github.io/blob/main/img/rq3_scenario.png"/>
+    <img src="/img/rq3_scenario.png"/>
+    <p>Figure: Scenario of RQ3</p>
 </div>
-<!-- ![rq3_scenario](/img/rq3_scenario.png)  -->
 
 As shown in the figure, we change the environment by adding a new Table TableC located outside the room.
 We perform ten demonstrations in the new environment. 
