@@ -64,7 +64,7 @@ The output layer consists of a 64×2 dense layer and a softmax layer.
 - _TaskA_ represents a pick-and-place task. From the figure below, the Fetch robot is first guided to move close to TableA and then to pick up the cube. After catching the cube, the robot is guided to move to TableB and finally put the cube on the table.
 
 <div align="center">
-    <img src="https://github.com/LCEPRPFD/LCEPRPFD.github.io/blob/main/img/TaskA_scenario.png"/>
+    <img src="/img/TaskA_scenario.png"/>
     <p>Figure: Scenario of TaskA</p>
 </div>
 
