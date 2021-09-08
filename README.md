@@ -263,4 +263,6 @@ The experiments is executed for 50 times.
 
 #### Video
 
-The video will be uploaded later.
+[![video_cover](/img/video_cover.png)](https://www.youtube.com/watch?v=FlgmvNA_D7Y)
+
+
