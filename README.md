@@ -141,6 +141,7 @@ This Table shows the comparision between our method and baseline.
 Each method is evaluated in both _SeR_ and _VeR_.
 We uses the robotic program which is learned and generated from five demonstrations. 
 The experiments is executed for 50 times.
+The raw data is provided by [5-shot_SeR.csv](/data/5-shot_SeR.csv), [5-shot_VeR.csv](/data/5-shot_VeR.csv), [baseline_SeR.csv](/data/baseline_SeR.csv), [baseline_VeR.csv](/data/baseline_VeR.csv).
 
 ---
 
@@ -211,6 +212,7 @@ The experiments is executed for 50 times.
 This table evaluates the impact of the number of demonstrations on our approach. 
 To this end, we learn from 1, 5, 10 and 20 demonstrations in _SeR_.
 The experiments is executed for 50 times.
+The raw data is provided by [1-shot_SeR.csv](/data/1-shot_SeR.csv), [5-shot_SeR.csv](/data/5-shot_SeR.csv), [10-shot_SeR.csv](/data/10-shot_SeR.csv), [20-shot_SeR.csv](/data/20-shot_SeR.csv).
 
 ---
 
@@ -246,6 +248,7 @@ The experiments is executed for 50 times.
 </table>
 
 This table shows the evaluation of the impact of demonstrations conducted in different environment settings on the approach accuracy. 
+The raw data is provided by [10-shot_RQ3.csv](/data/10-shot_RQ3.csv).
 
 <div align="center">
     <img src="/img/rq3_scenario.png"/>
