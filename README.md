@@ -109,16 +109,16 @@ The feature increases the value of our approach since the robot behavior in the 
 The states of the trajectories related to the robot features and the environment features can be obtained by subscribing to ROS topics.
 One is the ***joint_states*** topic which provides 13 joints of the robot features including the arm and the mobile base.
 They are 
-```
-{l_wheel_joint, r_wheel_joint, torso_lift_joint, bellows_joint, shoulder_pan_joint, shoulder_lift_joint, upperarm_roll_joint, elbow_flex_joint, forearm_roll_joint, wrist_flex_joint, wrist_roll_joint, l_gripper_finger_joint, r_gripper_finger_joint}.
-```
+
+> l_wheel_joint, r_wheel_joint, torso_lift_joint, bellows_joint, shoulder_pan_joint, shoulder_lift_joint, upperarm_roll_joint, elbow_flex_joint, forearm_roll_joint, wrist_flex_joint, wrist_roll_joint, l_gripper_finger_joint, r_gripper_finger_joint.
+
 Each joint has 3 properties including position, velocity and effort.
 There are 3×13 joint features from fetch itself.
-The other is the ***gazebo/model_states*** topic which provides 13 features associated with the position and the orientation of the robot and the cube as well.
+The other is the ***/gazebo/model_states*** topic which provides 13 features associated with the position and the orientation of the robot and the cube as well.
 They are
-```
-{fetch_pose_position_x, fetch_pose_position_y, fetch_pose_position_z, fetch_pose_orientation_x, fetch_pose_orientation_y, fetch_pose_orientation_z, fetch_pose_orientation_w, fetch_twist_linear_x, fetch_twist_linear_y, fetch_twist_linear_z, fetch_twist_angular_x, fetch_twist_angular_y, fetch_twist_angular_z}.
-```
+
+> fetch_pose_position_x, fetch_pose_position_y, fetch_pose_position_z, fetch_pose_orientation_x, fetch_pose_orientation_y, fetch_pose_orientation_z, fetch_pose_orientation_w, fetch_twist_linear_x, fetch_twist_linear_y, fetch_twist_linear_z, fetch_twist_angular_x, fetch_twist_angular_y, fetch_twist_angular_z.
+
 There are 13+13 joint features from ***Gazebo***.
 Thus, a state vector is composed of total 65 features.
 The state vectors of a trajectory are sampled with a 100Hz frequency.
