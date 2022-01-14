@@ -169,7 +169,7 @@ The Π<sub>task</sub> is formulated as
     <tr>(place<sub>1</sub>, place, prop<sub>3</sub>, prop<sub>4</sub>)⟩.</tr>
 </div>
 
-#### ***propNet*** learning and program generation}
+#### ***propNet*** learning and program generation
 The ***propNet*** related to the four symbols (i.e., ***prop<sub>1</sub>*** to ***prop<sub>4</sub>***) in the ***Π<sub>task</sub>*** is trained subsequently.
 For example to train the ***propNet<sub>prop<sub>i</sub></sub>*** for ***prop<sub>i</sub>***, we collect the trajectory fragments corresponding to the first action from the five demonstration trajectories, i.e., ***{T<sub>move<sub>1</sub></sub>}***.
 The fragment of the last 150 state vectors covering the end stage of the trajectory is labeled 1 and the remaining fragment is labeled 0.
