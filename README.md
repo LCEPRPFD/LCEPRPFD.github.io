@@ -10,13 +10,6 @@ We refactor the code of this project, which can be found [here](https://github.c
 
 ---
 
-### Dataset
-
-- [traj_capability](https://1drv.ms/u/s!AtQlfXL28GxeajG8PychjufKca8?e=bMah0V): a large training set of robot's capability execution. This is a serialized dictionary dataset with four keys: "move", "pick_cube", "transport" and "place_cube". The value of each key contains a list of trajectories for an capability.
-- [traj_demonstration](https://1drv.ms/u/s!An_sqEOHEaVaalbqMgGmadqPvqI?e=6wKFlF): a set of trajectories by executing TaskA. This is a serialized list dataset. Each element in the list is a dictionary object with four keys: "move", "pick_cube", "transport" and "place_cube". The value of each key is a trajectory of an capability.
-
----
-
 ### capNet
 
 <div align="center">
@@ -52,6 +45,155 @@ The output layer consists of a 64×2 dense layer and a softmax layer.
 
 ---
 
+### A Four-step Task
+
+Among the set of capabilities, we design a pick-and-place task.
+Suppose there are two tables, e.g., TableA and TableB in the simulation environment.
+TableA is outside a room and there is a cube on the table.
+TableB is inside the room.
+The Fetch robot is first guided to move close to TableA and then to pick up the cube.
+After catching the cube, the robot is guided to move to TableB and finally put the cube on the table.
+We perform demonstrations five times from the viewpoint of an end user.
+
+<div align="center">
+    <img src="/img/TaskA_scenario.png"/>
+    <p>Figure: Scenario of TaskA</p>
+</div>
+
+### Robot and Scenario
+We present the implementation of the approach on a ***Fetch*** robot in a simulation environment.
+A ***Fetch*** robot is mainly equipped with a mobile base and a robotic arm.
+The mobile base is made of two hub motors and four casters, while the arm is a seven-degree-of-freedom arm with a gripper.
+The capabilities of a ***Fetch*** used in the case study are listed in table below.
+
+<div align="center">
+    <p>Table: Capabilities of Fetch used in the case study</p>
+</div>
+
+<table>
+<thead>
+  <tr>
+    <th>Capability Type</th>
+    <th>Description</th>
+    <th>ROS API</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>move</td>
+    <td>The robot moves to a target by the mobile base and the arm is free.</td>
+    <td>move_base(target)</td>
+  </tr>
+  <tr>
+    <td>transport</td>
+    <td>The robot moves to a target by the mobile base while keeping the arm holding an object</td>
+    <td>move_base(target)</td>
+  </tr>
+  <tr>
+    <td>pick</td>
+    <td>The robot grabs a target object without body moving.</td>
+    <td>pick(target)</td>
+  </tr>
+  <tr>
+    <td>place</td>
+    <td>The robot puts the object held by the arm onto a target without body moving.</td>
+    <td>place(target)</td>
+  </tr>
+</tbody>
+</table>
+
+We implement the approach in a ***Gazebo9*** simulation environment, which is high-fidelity and offers the ability to accurately and efficiently simulate populations of robots in complex indoor and outdoor environments.
+The execution of the capabilities in the simulation environment shows uncertainty due to the physics engine or the probability-based algorithms. For example, an object slips away from the gripper of a robot, or a robot follows different moving paths by the SLAM navigation algorithm.
+The feature increases the value of our approach since the robot behavior in the simulation environment can reflect similar variability as in the real environment with real physical hardware.
+
+The states of the trajectories related to the robot features and the environment features can be obtained by subscribing to ROS topics.
+One is the ***joint_states*** topic which provides 13 joints of the robot features including the arm and the mobile base.
+They are 
+<div align="center">
+    {l_wheel_joint, r_wheel_joint, torso_lift_joint, bellows_joint, shoulder_pan_joint, shoulder_lift_joint, upperarm_roll_joint, elbow_flex_joint, forearm_roll_joint, wrist_flex_joint, wrist_roll_joint, l_gripper_finger_joint, r_gripper_finger_joint}.
+</div>
+
+Each joint has 3 properties including position, velocity and effort.
+There are 3×13 joint features from fetch itself.
+The other is the ***s/model_states*** topic which provides 13 features associated with the position and the orientation of the robot and the cube as well.
+They are <div align="center">
+    {fetch_pose_position_x, fetch_pose_position_y, fetch_pose_position_z, fetch_pose_orientation_x, fetch_pose_orientation_y, fetch_pose_orientation_z, fetch_pose_orientation_w, fetch_twist_linear_x, fetch_twist_linear_y, fetch_twist_linear_z, fetch_twist_angular_x, fetch_twist_angular_y, fetch_twist_angular_z}.
+</div>
+
+There are 13+13 joint features from ***Gazebo***.
+Thus, a state vector is composed of total 65 features.
+The state vectors of a trajectory are sampled with a 100Hz frequency.
+
+#### Dataset
+
+- [traj_capability](https://1drv.ms/u/s!AtQlfXL28GxeajG8PychjufKca8?e=bMah0V): a large training set of robot's capability execution. This is a serialized dictionary dataset with four keys: "move", "pick_cube", "transport" and "place_cube". The value of each key contains a list of trajectories for an capability.
+- [traj_demonstration](https://1drv.ms/u/s!An_sqEOHEaVaalbqMgGmadqPvqI?e=6wKFlF): a set of trajectories by executing the task. This is a serialized list dataset. Each element in the list is a dictionary object with four keys: "move", "pick_cube", "transport" and "place_cube". The value of each key is a trajectory of an capability.
+
+#### Offline Training
+We train the ***capNet*** based on the data set obtained from executing the four capabilities randomly.
+For example, to make the robot move around in a space, and to make the robot pick a cube which is placed in different positions on a table.
+We execute each capability more than one thousand times and obtain the data set containing more than 4,000 trajectories.
+The training lasts for 50,000 epochs.
+Each epoch contains 10 batch data and each batch data is selected when assembling a task.
+We construct a meta-learner to help train the ***baseNet***.
+The meta-learner manages the weights of the ***baseNet***.
+In each epoch, it computes the gradients by training the tasks each by five gradient update steps.
+The weights of the ***baseNet*** are updated by backpropogation from the meta-learner after accumulating the loss of all the tasks.
+We use meta-learning to train the ***baseNet***.
+The training of ***baseNet*** lasts for 50,000 epochs.
+***propNet<sub>prop<sub>i</sub></sub>*** is learned by fine-tuning on ***baseNet***.
+The training for the ***capNet*** and the ***baseNet*** is conducted on a machine with an AMD Ryzen 9 3950X processor and an RTX3090 GPU running with 128 GB RAM.
+
+#### Action Segmentation
+We set a sliding window of length 200.
+Each trajectory is input to the ***capNet*** to compute the likelihood of the action label of each fragment, as presented in the figure below.
+
+<div align="center">
+    <img src="/img/segmentation.png"/>
+    <p>Figure: Action segmentation of the 5 demonstrations</p>
+</div>
+
+<!-- \begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.7\textwidth]{drafts/segmentation.png}
+%    \vspace{-15pt}
+    \caption{Action segmentation of the 5 demonstrations
+        \label{fig:segment}}
+\end{figure} -->
+
+The sequences of the five demonstration trajectories are largely the same with the task scenario.
+The Π<sub>task</sub> is formulated as
+<div align="center">
+    <tr>⟨(move<sub>1</sub>, move, prop<sub>0</sub>, prop<sub>1</sub>),</tr>
+    <tr>(pick<sub>1</sub>, pick, prop<sub>1</sub>, prop<sub>2</sub>), </tr>
+    <tr>(transport<sub>1</sub>, transport, prop<sub>2</sub>, prop<sub>3</sub>), </tr>
+    <tr>(place<sub>1</sub>, place, prop<sub>3</sub>, prop<sub>4</sub>)⟩.</tr>
+</div>
+
+#### ***propNet*** learning and program generation}
+The ***propNet*** related to the four symbols (i.e., ***prop<sub>1</sub>*** to ***prop<sub>4</sub>***) in the ***Π<sub>task</sub>*** is trained subsequently.
+For example to train the ***propNet<sub>prop<sub>i</sub></sub>*** for ***prop<sub>i</sub>***, we collect the trajectory fragments corresponding to the first action from the five demonstration trajectories, i.e., ***{T<sub>move<sub>1</sub></sub>}***.
+The fragment of the last 150 state vectors covering the end stage of the trajectory is labeled 1 and the remaining fragment is labeled 0.
+The ***propNet<sub>prop<sub>i</sub></sub>*** is finetuned by a 15-step gradient descent.
+
+The PDDL program as well as the ROSPlan implementation is generated according to the templates.
+In this case, the five symbolic identifiers including ***prop<sub>0</sub>*** and ***prop<sub>4</sub>*** are specified in the **predicates** section of the **domain.pddl**, and the condition and the effect of the four durative-actions are represented by the identifiers.
+As for ROSPlan, four action implementation files are generated by appending the corresponding APIs, e.g., **pick(target)**, or **place(target)**.
+Four sensing implementation files each corresponding to a symbolic identifier are generated according to the template.
+In addition, the relationships between the identifiers and the implementation files are specified in the LaunchFile.
+
+#### Testing
+We test the generated robotic program by proposing a new request with the same goal of the task but under a slightly changed environment setting.
+We ask the robot to pick up a cube on TableA but located in a different position from the demonstrations, and then to transport and place the cube on TableB which is in another position in the room.
+The request is realized by customizing the parameters of the capability APIs, and thus the actions can be executed as expected.
+For example, the position of TableB can be obtained directly from the simulation environment. The position is specified as the actual parameter of the API, i.e., the parameter target of move_base.
+
+ROSPlan ingests the PDDL program and produces a four-step plan which is composed of the sequence of actions, i.e., (move1, pick1, transport1, place1).
+The TaskDispatching module manages the plan execution.
+When a proposition is specified in the LaunchFile, the dispatching module invokes the corresponding sensing implementation to determine whether to execute the next action by evaluating the ***propNet***.
+
+---
+
 ### Evaluations
 
 - _TP_ (true positive) represents the correct evaluation of a proposition (i.e., evaluate the truth value) to an action which is completed correctly
@@ -61,19 +203,13 @@ The output layer consists of a 64×2 dense layer and a softmax layer.
 - _cnt_ represents the total count of proposition evaluation performed during the program execution in an experiment, the accuracy is calculated by \#TP+\#TN/_cnt_, where \# means the count of the verdict.
 - _SeR_ is short for stationary-environmental request. _VeR_ is short for variable-environmental request.
 - _\#ES_ represents the count of the success during the executions. _\#EF_ represents the count of the failure.
-- _TaskA_ represents a pick-and-place task. From the figure below, the Fetch robot is first guided to move close to TableA and then to pick up the cube. After catching the cube, the robot is guided to move to TableB and finally put the cube on the table.
-
-<div align="center">
-    <img src="/img/TaskA_scenario.png"/>
-    <p>Figure: Scenario of TaskA</p>
-</div>
 
 ---
 
 #### RQ1 General Accuracy
 
 <div align="center">
-    <p>Table: Accuracy of evaluating propositions in TaskA</p>
+    <p>Table: Accuracy of proposition verdict</p>
 </div>
 
 <table align="center">
@@ -148,7 +284,7 @@ The raw data is provided by [5-shot_SeR.csv](/data/5-shot_SeR.csv), [5-shot_VeR.
 #### RQ2: Impact of the Number of Demonstrations
 
 <div align="center">
-    <p>Table: Accuracy of evaluating propositions in TaskA for SeR under different demonstration counts</p>
+    <p>Table: Accuracy of proposition verdict for SeR</p>
 </div>
 
 <table align="center">
@@ -219,7 +355,7 @@ The raw data is provided by [1-shot_SeR.csv](/data/1-shot_SeR.csv), [5-shot_SeR.
 #### RQ3: Impact of the Demonstrations under Difference Environment Settings
 
 <div align="center">
-    <p>Table: Accuracy of the program learned from demonstrations under different environment settings</p>
+    <p>Table: Accuracy of proposition verdict</p>
 </div>
 
 <table align="center">
