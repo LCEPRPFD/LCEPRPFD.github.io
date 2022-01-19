@@ -244,20 +244,23 @@ When a proposition is specified in the LaunchFile, the dispatching module invoke
 </div>
 
 <table align="center">
-    <tr align="center">
-        <td></td>
-        <td></td>
-        <td>cnt</td>
-        <td>#TP</td>
-        <td>#TN </td>
-        <td>#FP</td>
-        <td>#FN</td>
-        <td>Accuracy</td>
-        <td>#ES</td>
-        <td>#EF</td>
-    </tr>
-    <tr align="center">
-        <td rowspan="2">Our method</td>
+    <thead>
+      <tr align="center">
+        <th></th>
+        <th></th>
+        <th>cnt</th>
+        <th>#TP</th>
+        <th>#TN</th>
+        <th>#FP</th>
+        <th>#FN</th>
+        <th>Accuracy</th>
+        <th>#ES</th>
+        <th>#EF</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr align="center">
+        <td rowspan="2">Our method (5)</td>
         <td>SeR</td>
         <td>152</td>
         <td>130</td>
@@ -267,8 +270,8 @@ When a proposition is specified in the LaunchFile, the dispatching module invoke
         <td>90.8%</td>
         <td>28</td>
         <td>8</td>
-    </tr>
-    <tr align="center">
+      </tr>
+      <tr align="center">
         <td>VeR</td>
         <td>151</td>
         <td>120</td>
@@ -278,37 +281,61 @@ When a proposition is specified in the LaunchFile, the dispatching module invoke
         <td>86.8%</td>
         <td>19</td>
         <td>11</td>
-    </tr>
-    <tr align="center">
-        <td rowspan="2">Baseline</td>
+      </tr>
+      <tr align="center">
+        <td rowspan="2">Baseline (5)</td>
         <td>SeR</td>
-        <td>184</td>
-        <td>166</td>
-        <td>14</td>
-        <td>4</td>
+        <td>137</td>
+        <td>95</td>
+        <td>12</td>
+        <td>30</td>
         <td>0</td>
-        <td>97.8%</td>
-        <td>32</td>
-        <td>14</td>
-    </tr>
-    <tr align="center"> 
-        <td>VeR</td>
-        <td>73</td>
-        <td>25</td>
-        <td>0</td>
-        <td>48</td>
-        <td>0</td>
-        <td>34.2%</td>
+        <td>78.0%</td>
         <td>2</td>
+        <td>14</td>
+      </tr>
+      <tr align="center">
+        <td>VeR</td>
+        <td>79</td>
+        <td>29</td>
+        <td>3</td>
+        <td>47</td>
         <td>0</td>
-    </tr>
+        <td>40.5%</td>
+        <td>0</td>
+        <td>3</td>
+      </tr>
+      <tr align="center">
+        <td rowspan="2">Baseline (100)</td>
+        <td>SeR</td>
+        <td>182</td>
+        <td>153</td>
+        <td>12</td>
+        <td>10</td>
+        <td>7</td>
+        <td>90.7%</td>
+        <td>21</td>
+        <td>12</td>
+      </tr>
+      <tr align="center">
+        <td>VeR</td>
+        <td>78</td>
+        <td>32</td>
+        <td>6</td>
+        <td>40</td>
+        <td>0</td>
+        <td>48.7%</td>
+        <td>4</td>
+        <td>6</td>
+      </tr>
+    </tbody>
 </table>
 
 This Table shows the comparision between our method and baseline. 
 Each method is evaluated in both _SeR_ and _VeR_.
 We uses the robotic program which is learned and generated from five demonstrations. 
 The experiments is executed for 50 times.
-The raw data is provided by [5-shot_SeR.csv](/data/5-shot_SeR.csv), [5-shot_VeR.csv](/data/5-shot_VeR.csv), [baseline_SeR.csv](/data/baseline_SeR.csv), [baseline_VeR.csv](/data/baseline_VeR.csv).
+<!-- The raw data is provided by [5-shot_SeR.csv](/data/5-shot_SeR.csv), [5-shot_VeR.csv](/data/5-shot_VeR.csv), [baseline_SeR.csv](/data/baseline_SeR.csv), [baseline_VeR.csv](/data/baseline_VeR.csv). -->
 
 ---
 
@@ -379,7 +406,7 @@ The raw data is provided by [5-shot_SeR.csv](/data/5-shot_SeR.csv), [5-shot_VeR.
 This table evaluates the impact of the number of demonstrations on our approach. 
 To this end, we learn from 1, 5, 10 and 20 demonstrations in _SeR_.
 The experiments is executed for 50 times.
-The raw data is provided by [1-shot_SeR.csv](/data/1-shot_SeR.csv), [5-shot_SeR.csv](/data/5-shot_SeR.csv), [10-shot_SeR.csv](/data/10-shot_SeR.csv), [20-shot_SeR.csv](/data/20-shot_SeR.csv).
+<!-- The raw data is provided by [1-shot_SeR.csv](/data/1-shot_SeR.csv), [5-shot_SeR.csv](/data/5-shot_SeR.csv), [10-shot_SeR.csv](/data/10-shot_SeR.csv), [20-shot_SeR.csv](/data/20-shot_SeR.csv). -->
 
 ---
 
@@ -415,7 +442,7 @@ The raw data is provided by [1-shot_SeR.csv](/data/1-shot_SeR.csv), [5-shot_SeR.
 </table>
 
 This table shows the evaluation of the impact of demonstrations conducted in different environment settings on the approach accuracy. 
-The raw data is provided by [10-shot_RQ3.csv](/data/10-shot_RQ3.csv).
+<!-- The raw data is provided by [10-shot_RQ3.csv](/data/10-shot_RQ3.csv). -->
 
 <div align="center">
     <img src="/img/rq3_scenario.png"/>
