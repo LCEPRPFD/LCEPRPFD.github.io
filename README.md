@@ -283,6 +283,29 @@ When a proposition is specified in the LaunchFile, the dispatching module invoke
         <td>11</td>
       </tr>
       <tr align="center">
+        <td rowspan="2">Our method (10)</td>
+        <td>SeR</td>
+        <td>169</td>
+        <td>148</td>
+        <td>11</td>
+        <td>10</td>
+        <td>0</td>
+        <td>94.1%</td>
+        <td>29</td>
+        <td>11</td>
+      </tr>
+      <tr align="center">
+        <td>VeR</td>
+        <td>177</td>
+        <td>151</td>
+        <td>4</td>
+        <td>15</td>
+        <td>7</td>
+        <td>87.6%</td>
+        <td>24</td>
+        <td>4</td>
+      </tr>
+      <tr align="center">
         <td rowspan="2">Baseline (5)</td>
         <td>SeR</td>
         <td>137</td>
@@ -303,6 +326,29 @@ When a proposition is specified in the LaunchFile, the dispatching module invoke
         <td>0</td>
         <td>40.5%</td>
         <td>0</td>
+        <td>3</td>
+      </tr>
+      <tr align="center">
+        <td rowspan="2">Baseline (50)</td>
+        <td>SeR</td>
+        <td>154</td>
+        <td>119</td>
+        <td>14</td>
+        <td>10</td>
+        <td>11</td>
+        <td>86.3%</td>
+        <td>15</td>
+        <td>14</td>
+      </tr>
+      <tr align="center">
+        <td>VeR</td>
+        <td>81</td>
+        <td>35</td>
+        <td>3</td>
+        <td>43</td>
+        <td>0</td>
+        <td>46.9%</td>
+        <td>4</td>
         <td>3</td>
       </tr>
       <tr align="center">
@@ -328,8 +374,32 @@ When a proposition is specified in the LaunchFile, the dispatching module invoke
         <td>4</td>
         <td>6</td>
       </tr>
+      <tr align="center">
+        <td rowspan="2">Baseline (150)</td>
+        <td>SeR</td>
+        <td>184</td>
+        <td>163</td>
+        <td>19</td>
+        <td>2</td>
+        <td>0</td>
+        <td>98.9%</td>
+        <td>29</td>
+        <td>19</td>
+      </tr>
+      <tr align="center">
+        <td>VeR</td>
+        <td>84</td>
+        <td>34</td>
+        <td>7</td>
+        <td>43</td>
+        <td>0</td>
+        <td>48.8%</td>
+        <td>0</td>
+        <td>7</td>
+      </tr>
     </tbody>
 </table>
+
 
 This Table shows the comparision between our method and baseline. 
 Each method is evaluated in both _SeR_ and _VeR_.
