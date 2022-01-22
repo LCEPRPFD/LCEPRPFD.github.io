@@ -6,7 +6,7 @@
 
 ### Code
 
-We refactor the code of this project, which can be found [here](https://github.com/LCEPRPFD/learn_cnn_encoded_propositions).
+We implement the code of this project, which can be found [here](https://github.com/LCEPRPFD/learn_cnn_encoded_propositions).
 
 ---
 
@@ -66,7 +66,7 @@ In particular, it needs to enumerate all propositions in the **predicates** part
 The **problem.pddl** is generated according to the task goal.
 The **init** and the **goal** sections are specified by the first proposition prop<sub>0</sub> and the last proposition prop<sub>m</sub> of Π<sub>task</sub> respectively.
 
-The implementation for ROSPlan is generated at the same time.
+The configuration for ROSPlan is generated at the same time.
 Each action in the PDDL program is associated with a corresponding action implementation, e.g., action<sub>i</sub> is associated with **actionImplementationi.py**.
 In addition, each post-condition of the actions is associated with a corresponding sensing implementation, e.g., \textit{$prop_i$} with **sensingImplementationi.py**.
 The correspondence is defined in the LaunchFile.
@@ -94,7 +94,7 @@ We perform demonstrations five times from the viewpoint of an end user.
 
 ### Robot and Scenario
 We present the implementation of the approach on a ***Fetch*** robot in a simulation environment.
-A ***Fetch*** robot is mainly equipped with a mobile base and a robotic arm.
+***Fetch*** robot is mainly equipped with a mobile base and a robotic arm.
 The mobile base is made of two hub motors and four casters, while the arm is a seven-degree-of-freedom arm with a gripper.
 The capabilities of a ***Fetch*** used in the case study are listed in table below.
 
@@ -234,6 +234,8 @@ When a proposition is specified in the LaunchFile, the dispatching module invoke
 - _cnt_ represents the total count of proposition evaluation performed during the program execution in an experiment, the accuracy is calculated by \#TP+\#TN/_cnt_, where \# means the count of the verdict.
 - _SeR_ is short for stationary-environmental request. _VeR_ is short for variable-environmental request.
 - _\#ES_ represents the count of the success during the executions. _\#EF_ represents the count of the failure.
+
+The raw data is provided in [folder](/data/).
 
 ---
 
