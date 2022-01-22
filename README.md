@@ -235,7 +235,7 @@ When a proposition is specified in the LaunchFile, the dispatching module invoke
 - _SeR_ is short for stationary-environmental request. _VeR_ is short for variable-environmental request.
 - _\#ES_ represents the count of the success during the executions. _\#EF_ represents the count of the failure.
 
-The raw data is provided in [folder](/data/).
+The raw data is provided in [folder](https://github.com/LCEPRPFD/LCEPRPFD.github.io/tree/main/data).
 
 ---
 
