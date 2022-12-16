@@ -471,7 +471,7 @@ Then, an eight-step Π<sub>task</sub> can be assembled as
     <tr>(pick<sub>1</sub>, pick, prop<sub>2</sub>), </tr>
     <tr>(transport<sub>1</sub>, transport, prop<sub>3</sub>), </tr>
     <tr>(place<sub>1</sub>, place, prop<sub>4</sub>)</tr>
-    <tr>⟨(move<sub>2</sub>, move, prop<sub>1</sub>),</tr>
+    <tr>(move<sub>2</sub>, move, prop<sub>1</sub>),</tr>
     <tr>(pick<sub>2</sub>, pick, prop<sub>2</sub>), </tr>
     <tr>(transport<sub>2</sub>, transport, prop<sub>3</sub>), </tr>
     <tr>(place<sub>2</sub>, place, prop<sub>4</sub>)⟩.</tr>
